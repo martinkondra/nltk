@@ -34,6 +34,10 @@ class Tokens(object):
     ALL = "all"
     ALL_LIST = ["all", "forall"]
 
+    # Iota
+    IOTA = 'iota'
+    IOTA_LIST = ['iota']
+
     # Punctuation
     DOT = "."
     OPEN = "("
@@ -58,7 +62,7 @@ class Tokens(object):
 
     # Collections of tokens
     BINOPS = AND_LIST + OR_LIST + IMP_LIST + IFF_LIST
-    QUANTS = EXISTS_LIST + ALL_LIST
+    QUANTS = EXISTS_LIST + ALL_LIST + IOTA_LIST
     PUNCT = [DOT, OPEN, CLOSE, COMMA]
 
     TOKENS = BINOPS + EQ_LIST + NEQ_LIST + QUANTS + LAMBDA_LIST + PUNCT + NOT_LIST
@@ -89,8 +93,8 @@ def binding_ops():
     """
     Binding operators
     """
-    names = ["existential", "universal", "lambda"]
-    for pair in zip(names, [Tokens.EXISTS, Tokens.ALL, Tokens.LAMBDA]):
+    names = ["existential", "universal", "lambda", "iota"]
+    for pair in zip(names, [Tokens.EXISTS, Tokens.ALL, Tokens.LAMBDA, Tokens.IOTA]):
         print("%-15s\t%s" % pair)
 
 
@@ -433,6 +437,8 @@ class LogicParser(object):
             return ExistsExpression
         elif tok in Tokens.ALL_LIST:
             return AllExpression
+        elif tok in Tokens.IOTA_LIST:
+            return IotaExpression
         else:
             self.assertToken(tok, Tokens.QUANTS)
 
@@ -1748,7 +1754,10 @@ class ExistsExpression(QuantifiedExpression):
     def getQuantifier(self):
         return Tokens.EXISTS
 
-
+class IotaExpression(QuantifiedExpression):
+    def getQuantifier(self):
+        return Tokens.IOTA
+        
 class AllExpression(QuantifiedExpression):
     def getQuantifier(self):
         return Tokens.ALL
