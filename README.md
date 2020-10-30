@@ -1,3 +1,6 @@
+# Fork de NLTK
+# El objetivo de este fork es agregar el operador iota al modulo sem de interpretación semántica
+
 # Natural Language Toolkit (NLTK)
 [![PyPI](https://img.shields.io/pypi/v/nltk.svg)](https://pypi.python.org/pypi/nltk) 
 [![Travis](https://travis-ci.org/nltk/nltk.svg?branch=develop)](https://travis-ci.org/nltk/nltk)
